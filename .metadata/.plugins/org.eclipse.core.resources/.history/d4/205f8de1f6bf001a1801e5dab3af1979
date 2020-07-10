@@ -1,0 +1,58 @@
+package com.example.demo;
+
+import org.springframework.stereotype.Service;
+
+@Service("testservice")
+public class TestService {
+
+	public TestService() {
+		// TODO Auto-generated constructor stub
+	}
+
+	
+	public String date_add (String cal) {
+		String retVal = null;
+		String start_day = cal.substring(0,3);
+		String offset_day_string = cal.replace(start_day, "");
+		Integer offset_day = Integer.parseInt(offset_day_string);
+		int offset = 0;
+		
+		switch (start_day) {
+		case "Sun":
+			break;
+		case "Mon":
+			offset = 1;
+			break;
+		case "Tue":
+			offset = 2;
+			break;
+		case "Wed":
+			offset = 3;
+			break;
+		case "Thu":
+			offset = 4;
+			break;
+		case "Fri":
+			offset = 5;
+			break;
+		case "Sat":
+			offset = 6;
+			break;
+		default:
+			//Invalid 
+		
+		
+		}
+		
+		retVal = find_day(offset_day + offset);
+		
+		return retVal;
+	}
+	
+	
+	public String find_day (Integer daynumber) {
+		Integer day = (daynumber % 7);
+		String[] days = new String[] {"Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"}; 
+		return days[day];
+	}
+}

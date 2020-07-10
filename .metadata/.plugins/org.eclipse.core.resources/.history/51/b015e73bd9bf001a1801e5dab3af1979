@@ -1,0 +1,54 @@
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+		DemoApplication.date_add("Tue40");
+	}
+
+	
+	// Example input Tue2 = Tue + 40 days
+	
+	public static String date_add (String cal) {
+		String retVal = null;
+		String start_day = cal.substring(0,3);
+		int offset = 0;
+		
+		switch (start_day) {
+		case "Sun":
+			break;
+		case "Mon":
+			offset = 1;
+			break;
+		case "Tues":
+			offset = 2;
+			break;
+		case "Wed":
+			offset = 3;
+			break;
+		case "Thu":
+			offset = 4;
+			break;
+		case "Fri":
+			offset = 5;
+			break;
+		case "Sat":
+			offset = 6;
+			break;
+		default:
+			//Invalid 
+		
+		
+		}
+		
+		
+		return retVal;
+	}
+	
+	
+}

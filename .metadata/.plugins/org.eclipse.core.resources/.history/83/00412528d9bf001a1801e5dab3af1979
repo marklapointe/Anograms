@@ -1,0 +1,27 @@
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+		DemoApplication.date_add("Tue40");
+	}
+
+	
+	// Example input Tue2 = Tue + 40 days
+	
+	public static String date_add (String cal) {
+		String retVal = null;
+		String start_day = cal.substring(0,3);
+		
+		
+		
+		return retVal;
+	}
+	
+	
+}

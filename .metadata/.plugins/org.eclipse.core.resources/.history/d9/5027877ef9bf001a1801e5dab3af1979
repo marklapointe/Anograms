@@ -1,0 +1,35 @@
+package com.example.demo;
+
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import org.springframework.stereotype.Service;
+
+@Service("testservice")
+public class TestService {
+
+	public TestService() {
+	}
+
+	
+	public String date_add (String cal) {
+		String start_day = cal.substring(0,3);
+		String offset_day_string = cal.replace(start_day, "");
+		Integer offset_day = Integer.parseInt(offset_day_string);
+		int offset = 0;
+		Map<String,Integer> days  = Stream.of(new Object[][] {
+			  { "Sun",0 }, 
+			  { "Mon", 1 }, { "Tue", 2 }, { "Wed", 3 }, { "Thu",4 }, { "Fri",5 }, { "Sat",6 }, 
+			}).collect(Collectors.toMap(data -> (String) data[0], data -> (Integer)data[1]));
+		offset = days.get(start_day);
+		return find_day(offset_day + offset);
+	}
+	
+	
+	public String find_day (Integer daynumber) {
+		Integer day = (daynumber % 7);
+		String[] days = new String[] {"Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"}; 
+		return days[day];
+	}
+}

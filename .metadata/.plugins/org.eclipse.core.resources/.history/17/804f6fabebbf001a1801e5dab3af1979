@@ -1,0 +1,86 @@
+package com.example.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+		System.out.println(DemoApplication.date_add("Tue40"));
+		System.out.println(DemoApplication.date_add("Tue1"));
+		System.out.println(DemoApplication.date_add("Sat23"));
+	}
+
+	
+	// Example input Tue2 = Tue + 40 days
+	
+	public static String date_add (String cal) {
+		String retVal = null;
+		String start_day = cal.substring(0,3);
+		int strlen = cal.length();
+		String offset_day_string = cal.replace(start_day, "");
+		Integer offset_day = Integer.parseInt(offset_day_string);
+		int offset = 0;
+		
+		switch (start_day) {
+		case "Sun":
+			break;
+		case "Mon":
+			offset = 1;
+			break;
+		case "Tue":
+			offset = 2;
+			break;
+		case "Wed":
+			offset = 3;
+			break;
+		case "Thu":
+			offset = 4;
+			break;
+		case "Fri":
+			offset = 5;
+			break;
+		case "Sat":
+			offset = 6;
+			break;
+		default:
+			//Invalid 
+		
+		
+		}
+		
+		retVal = DemoApplication.find_day(offset_day + offset);
+		
+		return retVal;
+	}
+	
+	public static String find_day (Integer daynumber) {
+		String retVal = "Invalid";
+		Integer day = (daynumber % 7);
+		switch (day) {
+		case 1:
+			retVal = "Mon";
+			break;
+		case 2:
+			retVal = "Tue";
+			break;
+		case 3:
+			retVal = "Wed";
+			break;
+		case 4:
+			retVal = "Thu";
+			break;
+		case 5:
+			retVal = "Fri";
+			break;
+		case 6:
+			retVal = "Sat";
+			break;
+		default:
+			retVal = "Sun";
+		}
+		return retVal;
+	}
+}

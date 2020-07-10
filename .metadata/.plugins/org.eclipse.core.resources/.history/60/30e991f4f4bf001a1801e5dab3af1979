@@ -1,0 +1,103 @@
+package com.example.demo;
+
+import java.util.Arrays;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	@Autowired
+	TestService testservice;
+	
+	public DemoApplication () {
+		
+	}
+	
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		context.scan("com.example.demo");
+//		context.refresh();
+		TestService testservice = context.getBean(TestService.class);
+		DemoApplication da = new DemoApplication();
+//		System.out.println(this.testservice.date_add("Tue40"));
+//		System.out.println(testservice.date_add("Tue1"));
+//		System.out.println(testservice.date_add("Sat23"));
+		
+		System.out.println(DemoApplication.date_add("Tue40"));
+		System.out.println(DemoApplication.date_add("Tue1"));
+		System.out.println(DemoApplication.date_add("Sat23"));
+	}
+
+	@Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+
+			System.out.println("Let's inspect the beans provided by Spring Boot:");
+
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				System.out.println(beanName);
+			}
+			TestService testservice = ctx.getBean(TestService.class);
+			System.out.println("");
+		};
+	}
+	
+	// Example input Tue2 = Tue + 40 days
+	
+	public static String date_add (String cal) {
+		String retVal = null;
+		String start_day = cal.substring(0,3);
+		String offset_day_string = cal.replace(start_day, "");
+		Integer offset_day = Integer.parseInt(offset_day_string);
+		int offset = 0;
+		
+		switch (start_day) {
+		case "Sun":
+			break;
+		case "Mon":
+			offset = 1;
+			break;
+		case "Tue":
+			offset = 2;
+			break;
+		case "Wed":
+			offset = 3;
+			break;
+		case "Thu":
+			offset = 4;
+			break;
+		case "Fri":
+			offset = 5;
+			break;
+		case "Sat":
+			offset = 6;
+			break;
+		default:
+			//Invalid 
+		
+		
+		}
+		
+		retVal = DemoApplication.find_day(offset_day + offset);
+		
+		return retVal;
+	}
+	
+	public static String find_day (Integer daynumber) {
+		String retVal = "Invalid";
+		Integer day = (daynumber % 7);
+		String[] days = new String[] {"Sun", "Mon", "Tue","Wed","Thu","Fri","Sat"}; 
+		return days[day];
+	}
+}
