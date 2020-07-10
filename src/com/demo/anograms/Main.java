@@ -43,11 +43,11 @@ public class Main {
 			chars.add(String.valueOf(a));
 		}
 		
-		for (String c: chars) {
+		for (int c = 0; c < chars.size(); c++) {
 			List<String> remainingChars = new ArrayList<String>();
 			remainingChars.addAll(chars);
-			remainingChars.remove(c);
-			this.build_anagrams(anagrams, c, remainingChars);
+			remainingChars.remove(chars.get(c));
+			this.build_anagrams(anagrams, chars.get(c), remainingChars);
 		}
 
 		System.out.println(anagrams);
